@@ -1,0 +1,12 @@
+@use "./reset";
+@use "./variables" as v;
+
+:root {
+  color-scheme: light;
+}
+
+body {
+  font-family: v.$font-body;
+  background: v.$color-bg;
+  color: v.$color-text;
+}

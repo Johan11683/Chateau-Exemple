@@ -1,0 +1,77 @@
+@use "../../styles/variables" as v;
+@use "../../styles/mixins" as m;
+
+.footer {
+  padding-block: v.$space-6;
+  background: transparent;
+}
+
+.inner {
+  @include m.container;
+
+  display: grid;
+  gap: v.$space-6;
+
+  grid-template-columns: 1fr;
+
+  @include m.up(v.$bp-lg) {
+    grid-template-columns: 2fr 1fr;
+    align-items: start;
+  }
+}
+
+/* Colonne gauche */
+.left {
+  display: flex;
+  flex-direction: column;
+  gap: v.$space-4;
+}
+
+.brand {
+  @include m.luxe-text;
+  font-size: 0.9rem;
+  color: v.$color-text-accent;
+}
+
+.legal {
+  font-size: 0.8rem;
+  color: v.$color-text-muted;
+  line-height: 1.6;
+}
+
+.meta {
+  display: flex;
+  flex-direction: column;
+  gap: v.$space-3;
+
+  p {
+    font-size: 0.85rem;
+    color: v.$color-text-muted;
+    line-height: 1.6;
+
+    strong {
+      color: v.$color-text-accent;
+      font-weight: normal;
+    }
+
+    a {
+      color: v.$color-text-accent;
+      text-decoration: none;
+    }
+  }
+}
+
+/* Colonne droite */
+.nav {
+  display: flex;
+  align-items: flex-end;
+  flex-direction: column;
+  gap: v.$space-3;
+
+  a {
+    @include m.luxe-text;
+    font-size: 0.8rem;
+    color: v.$color-text-accent;
+    text-decoration: none;
+  }
+}

@@ -1,0 +1,17 @@
+@use "../styles/index";
+
+html,
+body {
+  /* Firefox */
+  scrollbar-width: none;
+
+  /* IE/Edge legacy (au cas où) */
+  -ms-overflow-style: none;
+}
+
+/* Chrome / Edge / Safari */
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}

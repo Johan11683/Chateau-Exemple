@@ -1,0 +1,28 @@
+@use "./variables" as v;
+
+@mixin container {
+  width: min(v.$container-fluid, calc(100% - (v.$gutter * 2)));
+  max-width: v.$container-max;
+  margin-inline: auto;
+}
+
+
+@mixin up($bp) {
+  @media (min-width: $bp) {
+    @content;
+  }
+}
+
+@mixin luxe-text {
+  font-family: v.$font-luxe;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+}
+
+@mixin focus-ring {
+  &:focus-visible {
+    outline: 2px solid rgba(255, 255, 255, 0.6);
+    outline-offset: 3px;
+    border-radius: 10px;
+  }
+}

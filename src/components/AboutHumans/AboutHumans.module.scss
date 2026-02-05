@@ -1,0 +1,61 @@
+@use "../../styles/variables" as v;
+@use "../../styles/mixins" as m;
+
+.section {
+  padding-block: v.$space-6;
+}
+
+.inner {
+  @include m.container;
+
+  display: grid;
+  gap: v.$space-5;
+
+  // mobile: image au-dessus, texte en dessous
+  grid-template-columns: 1fr;
+
+  @include m.up(v.$bp-lg) {
+    // desktop: image gauche, texte droite
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    gap: v.$space-6;
+  }
+}
+
+.media {
+  overflow: hidden;
+  position: relative;
+  aspect-ratio: 16 / 9; // choisis ton ratio “éditorial”
+}
+
+.image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 0; // au lieu de none (none n'existe pas)
+}
+
+.content {
+  max-width: 60ch;
+}
+
+.kicker {
+  @include m.luxe-text;
+  font-size: 0.75rem;
+  color: v.$color-text-accent;
+}
+
+.title {
+  margin-top: v.$space-3;
+  @include m.luxe-text;
+  font-size: clamp(1.4rem, 2.6vw, 2.1rem);
+  line-height: 1.15;
+  color: v.$color-text-accent;
+}
+
+.text {
+  margin-top: v.$space-3;
+  color: v.$color-text-muted;
+  line-height: 1.7;
+  font-size: 1rem;
+}

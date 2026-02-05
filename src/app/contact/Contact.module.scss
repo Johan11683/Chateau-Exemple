@@ -1,0 +1,106 @@
+@use "../../styles/variables" as v;
+@use "../../styles/mixins" as m;
+
+.section {
+  padding-block: v.$space-6;
+}
+
+.inner {
+  @include m.container;
+  max-width: 60ch;
+}
+
+.kicker {
+  @include m.luxe-text;
+  font-size: 0.75rem;
+  color: v.$color-text-accent;
+}
+
+.title {
+  margin-top: v.$space-3;
+  @include m.luxe-text;
+  font-size: clamp(1.6rem, 3vw, 2.4rem);
+  line-height: 1.1;
+  color: v.$color-text-accent;
+}
+
+.text {
+  margin-top: v.$space-4;
+  color: v.$color-text-muted;
+  line-height: 1.7;
+  font-size: 1rem;
+}
+
+.form {
+  margin-top: v.$space-5;
+
+  display: flex;
+  flex-direction: column;
+  gap: v.$space-4;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+
+  label {
+    font-size: 0.75rem;
+    color: v.$color-text-muted;
+  }
+
+  input,
+  textarea {
+    font-family: inherit;
+    font-size: 0.95rem;
+    padding: 12px 0;
+
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid v.$color-text-muted;
+
+    color: v.$color-text-accent;
+
+    &:focus {
+      outline: none;
+      border-bottom-color: v.$color-text-accent;
+    }
+  }
+
+  textarea {
+    resize: vertical;
+  }
+}
+
+.submit {
+  margin-top: v.$space-4;
+
+  align-self: flex-start;
+
+  background: none;
+  border: none;
+  padding: 0;
+
+  @include m.luxe-text;
+  font-size: 0.85rem;
+  color: v.$color-text-accent;
+  cursor: pointer;
+
+  position: relative;
+
+  &::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -4px;
+    width: 100%;
+    height: 1px;
+    background: v.$color-text-accent;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  &:hover::after {
+    opacity: 1;
+  }
+}
