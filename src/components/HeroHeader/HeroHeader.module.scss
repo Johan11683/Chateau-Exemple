@@ -1,0 +1,125 @@
+@use "../../styles/variables" as v;
+@use "../../styles/mixins" as m;
+
+.heroHeader {
+  /* Mobile-first : colonne, full width, beaucoup d'air */
+  width: 100%;
+  margin-inline: auto;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  /* ✅ plus d'air + "remplir" verticalement */
+  margin-top: clamp(v.$space-7, 8vh, v.$space-8);
+  padding-inline: v.$space-4;
+  padding-block: clamp(v.$space-3, 3.5vh, v.$space-6);
+
+  /* ✅ gros espacement entre items */
+  gap: clamp(v.$space-4, 4vh, v.$space-7);
+
+  /* SM : encore un peu plus, sans exploser */
+  @include m.up(v.$bp-sm) {
+    padding-inline: v.$space-5;
+    gap: clamp(v.$space-5, 3.5vh, v.$space-7);
+  }
+
+  /* MD : on repasse en ligne, et on revient à un rythme horizontal */
+  @include m.up(v.$bp-md) {
+    @include m.container;
+
+    padding-inline: 0;
+    padding-block: 0;
+
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: v.$space-6;
+    margin-top: v.$space-8;
+  }
+
+  @include m.up(v.$bp-lg) {
+    gap: v.$space-7;
+  }
+
+  @include m.up(v.$bp-xl) {
+    gap: v.$space-8;
+  }
+
+  a {
+    @include m.luxe-text;
+
+    color: v.$color-bg;
+    text-decoration: none;
+    position: relative;
+
+    /* ✅ gros touch target + présence verticale */
+    min-height: 52px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    /* ✅ taille/spacing responsive */
+    font-size: clamp(1.2rem, 4.6vw, 1.7rem);
+    letter-spacing: clamp(0.06em, 0.8vw, 0.14em);
+
+    /* ✅ un peu de "poids" visuel sans bouton */
+    padding-inline: 0.6rem;
+    padding-block: 0.25rem;
+
+    /* underline */
+    &::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: -8px;
+      height: 1px;
+      background: v.$color-bg;
+
+      opacity: 0.75; /* ✅ visible direct sur mobile pour le style */
+      transform: scaleX(0.9);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    /* Hover uniquement sur devices qui hover */
+    @media (hover: hover) and (pointer: fine) {
+      &::after {
+        opacity: 0;
+      }
+
+      &:hover::after {
+        opacity: 1;
+        transform: scaleX(1);
+      }
+    }
+
+    /* Focus clavier */
+    @include m.focus-ring;
+
+    &:focus-visible::after {
+      opacity: 1;
+      transform: scaleX(1);
+    }
+
+    /* MD+ : style plus "menu" horizontal */
+    @include m.up(v.$bp-md) {
+      min-height: auto;
+      font-size: clamp(1.4rem, 2.2vw, 2rem);
+      padding-inline: 0.25rem;
+
+      &::after {
+        opacity: 0;
+        bottom: -6px;
+        transform: scaleX(0.98);
+      }
+
+      @media (hover: hover) and (pointer: fine) {
+        &:hover::after {
+          opacity: 1;
+          transform: scaleX(1);
+        }
+      }
+    }
+  }
+}

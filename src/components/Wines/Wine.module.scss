@@ -1,0 +1,139 @@
+@use "../../styles/variables" as v;
+@use "../../styles/mixins" as m;
+
+/* =========================================================
+   SECTION
+   ========================================================= */
+
+.section {
+  padding-block: clamp(v.$space-6, 10vh, v.$space-8);
+}
+
+.inner {
+  @include m.container;
+}
+
+/* =========================================================
+   HEADING
+   ========================================================= */
+
+.heading {
+  margin-bottom: clamp(v.$space-5, 8vh, v.$space-7);
+  max-width: 60ch;
+}
+
+.kicker {
+  @include m.luxe-text;
+  font-size: 0.75rem;
+  color: v.$color-text-accent;
+}
+
+.title {
+  margin-top: v.$space-3;
+  @include m.luxe-text;
+  font-size: clamp(1.4rem, 2.6vw, 2.1rem);
+  line-height: 1.15;
+  color: v.$color-text-accent;
+}
+
+/* =========================================================
+   GRID
+   ========================================================= */
+
+.grid {
+  display: grid;
+
+  /* mobile-first : une carte par ligne */
+  grid-template-columns: 1fr;
+  gap: clamp(v.$space-6, 8vh, v.$space-7);
+
+  /* tablette */
+  @include m.up(v.$bp-md) {
+    grid-template-columns: 1fr 1fr;
+    gap: v.$space-6;
+  }
+
+  /* desktop */
+  @include m.up(v.$bp-lg) {
+    grid-template-columns: repeat(3, 1fr);
+    gap: v.$space-7;
+  }
+}
+
+/* =========================================================
+   CARD
+   ========================================================= */
+
+.card {
+  display: block;
+}
+
+/* le lien porte toute la carte */
+.cardLink {
+  display: grid;
+  gap: v.$space-4;
+  align-content: start;
+
+  height: 100%;
+  text-decoration: none;
+  color: inherit;
+
+  &:focus-visible {
+    outline: 2px solid rgba(0, 0, 0, 0.35);
+    outline-offset: 8px;
+  }
+}
+
+/* =========================================================
+   MEDIA
+   ========================================================= */
+
+.media {
+  position: relative;
+  overflow: hidden;
+
+  aspect-ratio: 3 / 4;
+  width: 100%;
+
+  /* < bp-md : pas de max-height sinon ça réduit la largeur */
+  max-height: 80vw;
+
+  @include m.up(v.$bp-md) {
+    max-height: 55vw;
+  }
+
+  @include m.up(v.$bp-lg) {
+    max-height: none;
+  }
+}
+
+.image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 70%;
+  transform: scale(1);
+}
+
+/* hover léger desktop only */
+@media (hover: hover) and (pointer: fine) {
+  .cardLink:hover .image {
+    transform: scale(1.03);
+    transition: transform 0.6s ease;
+  }
+}
+
+/* =========================================================
+   CARD TITLE
+   ========================================================= */
+
+.cardTitle {
+  @include m.luxe-text;
+  color: v.$color-text-accent;
+
+  display: block;
+  padding-top: v.$space-3;
+
+  font-size: clamp(0.85rem, 2.4vw, 1rem);
+  line-height: 1.2;
+}

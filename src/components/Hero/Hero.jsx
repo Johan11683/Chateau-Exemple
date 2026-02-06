@@ -2,15 +2,17 @@
 
 import { useEffect, useState } from "react";
 import Image from "next/image";
+import HeroHeader from "@/components/HeroHeader/HeroHeader";
 import styles from "./Hero.module.scss";
 
 export default function Hero() {
   const [canLoadVideo, setCanLoadVideo] = useState(false);
 
   useEffect(() => {
-    const id = "requestIdleCallback" in window
-      ? window.requestIdleCallback(() => setCanLoadVideo(true), { timeout: 1500 })
-      : window.setTimeout(() => setCanLoadVideo(true), 600);
+    const id =
+      "requestIdleCallback" in window
+        ? window.requestIdleCallback(() => setCanLoadVideo(true), { timeout: 1500 })
+        : window.setTimeout(() => setCanLoadVideo(true), 600);
 
     return () => {
       if (typeof id === "number") window.clearTimeout(id);
@@ -27,12 +29,12 @@ export default function Hero() {
             alt=""
             fill
             priority
-            className={styles.video}
+            className={styles.mediaImg}
             sizes="100vw"
           />
         ) : (
           <video
-            className={styles.video}
+            className={styles.mediaVideo}
             autoPlay
             muted
             loop
@@ -50,7 +52,11 @@ export default function Hero() {
 
       <div className={styles.content}>
         <p className={styles.kicker}>un exemple de site pour un château exemplaire</p>
-        <h1 className={styles.title}>Château L&apos;Exemple</h1>
+        <h1 className={styles.title}>
+          Château <br /> L&apos;Exemple
+        </h1>
+
+        <HeroHeader />
       </div>
     </section>
   );

@@ -4,13 +4,13 @@
 .hero {
   position: relative;
   width: 100%;
-  min-height: 72vh; // mobile: grand, sans forcer 100vh
+  min-height: 72vh;
   display: grid;
-  place-items: center;
+  align-items: start;
   overflow: hidden;
 
   @include m.up(v.$bp-lg) {
-    min-height: 100vh; // PC: fullscreen
+    min-height: 100vh;
   }
 }
 
@@ -19,61 +19,104 @@
   inset: 0;
 }
 
-.image {
-  object-fit: cover;
-  object-position: center;
-  transform: scale(1.02); // micro “luxe”, évite un bord visible
-}
-
-.overlay {
-  position: absolute;
-  inset: 0;
-
-  // sombre léger pour lisibilité du blanc (sobre)
-  background: linear-gradient(
-    to bottom,
-    rgba(0, 0, 0, 0.35),
-    rgba(0, 0, 0, 0.25)
-  );
-}
-
-.content {
-  @include m.container;
-
-  position: relative;
-  z-index: 1;
-
-  text-align: center;
-  padding-block: v.$space-6;
-}
-
-.kicker {
-  @include m.luxe-text;
-
-  font-size: 0.7rem;
-  color: v.$color-bg;
-  max-width: 36ch;
-  margin-inline: auto;
-}
-
-.title {
-  @include m.luxe-text;
-
-  margin-top: v.$space-3;
-  font-size: clamp(1.8rem, 4vw, 3.4rem);
-  line-height: 1.1;
-}
-.video {
+.mediaImg,
+.mediaVideo {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
   object-position: center;
-  transform: scale(1.02); // même micro-luxe que l'image
+  transform: scale(1.02);
 }
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.45),
+    rgba(0, 0, 0, 0.25)
+  );
+}
+
+.content {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+
+  /* mobile-first full width */
+  width: 100%;
+  margin-inline: auto;
+  padding-inline: v.$space-4;
+  padding-top: clamp(5.5rem, 16vh, 9rem);
+  padding-bottom: v.$space-6;
+
+  /* container seulement md+ */
+  @include m.up(v.$bp-md) {
+    @include m.container;
+    padding-inline: 0;
+    padding-top: clamp(7rem, 18vh, 11rem);
+  }
+
+  @include m.up(v.$bp-lg) {
+    padding-top: clamp(9rem, 22vh, 14rem);
+    padding-bottom: v.$space-7;
+  }
+}
+
+/* -------------------------
+   TEXTE
+-------------------------- */
+
+.kicker,
+.title {
+  @include m.luxe-text;
+
+  /* anti débordement */
+  white-space: normal;
+  overflow-wrap: anywhere;
+  word-break: normal;
+
+  margin-inline: auto;
+  max-width: 24ch;
+
+  /* 🔑 tracking RESPONSIVE (au lieu du 0.14em fixe) */
+  letter-spacing: clamp(0.06em, 0.9vw, 0.14em);
+}
+
+/* kicker */
+.kicker {
+  font-size: clamp(0.8rem, 3.4vw, 1rem);
+  color: v.$color-bg;
+  opacity: 0.95;
+}
+
+/* titre */
+.title {
+  margin-top: v.$space-6;
+  font-size: clamp(1.9rem, 8.5vw, 3.2rem);
+  line-height: 1.05;
+  max-width: 16ch; /* plus serré que le kicker */
+
+  /* ton <br/> doit rester un vrai retour */
+  br {
+    display: block;
+  }
+
+  @include m.up(v.$bp-md) {
+    font-size: clamp(2.8rem, 4.6vw, 4.4rem);
+    max-width: 18ch;
+  }
+
+  @include m.up(v.$bp-xl) {
+    font-size: 4.75rem;
+  }
+}
+
+/* reduced motion : on coupe seulement la vidéo */
 @media (prefers-reduced-motion: reduce) {
-  .video {
+  .mediaVideo {
     display: none;
   }
 }

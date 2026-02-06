@@ -1,77 +1,165 @@
 @use "../../styles/variables" as v;
 @use "../../styles/mixins" as m;
 
+/* =========================================================
+   FOOTER
+   ========================================================= */
+
 .footer {
-  padding-block: v.$space-6;
-  background: transparent;
+  background-color: v.$color-bg-light;
+
+  /* mobile-first : footer présent mais pas massif */
+  padding-block: clamp(v.$space-4, 8vh, v.$space-6);
 }
+
+/* =========================================================
+   INNER
+   ========================================================= */
 
 .inner {
   @include m.container;
 
   display: grid;
-  gap: v.$space-6;
 
+  /* mobile-first : tout stacké */
   grid-template-columns: 1fr;
+  gap: clamp(v.$space-5, 6vh, v.$space-6);
 
+  /* tablette : on aère mais on reste en colonne */
+  @include m.up(v.$bp-md) {
+    gap: v.$space-6;
+  }
+
+  /* desktop : vraie structure en 3 colonnes */
   @include m.up(v.$bp-lg) {
-    grid-template-columns: 2fr 1fr;
+    grid-template-columns: 1fr 1fr auto;
     align-items: start;
+    gap: v.$space-7;
   }
 }
 
-/* Colonne gauche */
-.left {
+/* =========================================================
+   BRAND / CONTACT
+   ========================================================= */
+
+.brandBlock {
   display: flex;
   flex-direction: column;
-  gap: v.$space-4;
+  gap: v.$space-3;
+
+  /* mobile : centré */
+  text-align: center;
+
+  @include m.up(v.$bp-lg) {
+    text-align: left;
+  }
 }
 
 .brand {
   @include m.luxe-text;
-  font-size: 0.9rem;
+  font-size: clamp(0.8rem, 2.6vw, 0.9rem);
   color: v.$color-text-accent;
 }
 
-.legal {
-  font-size: 0.8rem;
-  color: v.$color-text-muted;
+.contact {
+  font-size: clamp(0.75rem, 2.4vw, 0.85rem);
   line-height: 1.6;
-}
 
-.meta {
-  display: flex;
-  flex-direction: column;
-  gap: v.$space-3;
-
-  p {
-    font-size: 0.85rem;
+  a {
     color: v.$color-text-muted;
-    line-height: 1.6;
+    text-decoration: none;
 
-    strong {
+    &:hover {
       color: v.$color-text-accent;
-      font-weight: normal;
-    }
-
-    a {
-      color: v.$color-text-accent;
-      text-decoration: none;
     }
   }
 }
 
-/* Colonne droite */
-.nav {
+/* =========================================================
+   HOURS / LEGAL
+   ========================================================= */
+
+.hoursBlock {
   display: flex;
-  align-items: flex-end;
   flex-direction: column;
   gap: v.$space-3;
 
+  /* mobile : centré */
+  text-align: center;
+
+  @include m.up(v.$bp-lg) {
+    text-align: left;
+  }
+}
+
+.hours {
+  font-size: clamp(0.75rem, 2.4vw, 0.85rem);
+  color: v.$color-text-muted;
+  line-height: 1.6;
+
+  strong {
+    @include m.luxe-text;
+    font-size: 0.7rem;
+    color: v.$color-text-accent;
+    font-weight: normal;
+  }
+}
+
+.legal {
+  font-size: clamp(0.7rem, 2.2vw, 0.75rem);
+  color: v.$color-text-muted;
+}
+
+/* =========================================================
+   NAV
+   ========================================================= */
+
+.nav {
+  display: flex;
+  flex-direction: column;
+
+  gap: v.$space-2;
+
+  /* mobile : centré */
+  align-items: center;
+  text-align: center;
+
+  @include m.up(v.$bp-lg) {
+    align-items: flex-end;
+    text-align: right;
+  }
+
   a {
     @include m.luxe-text;
-    font-size: 0.8rem;
+
+    font-size: clamp(0.7rem, 2.2vw, 0.75rem);
     color: v.$color-text-accent;
     text-decoration: none;
+
+    position: relative;
+
+    &::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: -4px;
+      height: 1px;
+      background: currentColor;
+      opacity: 0;
+      transition: opacity 0.25s ease;
+    }
+
+    @media (hover: hover) and (pointer: fine) {
+      &:hover::after {
+        opacity: 1;
+      }
+    }
+
+    @include m.focus-ring;
+
+    &:focus-visible::after {
+      opacity: 1;
+    }
   }
 }

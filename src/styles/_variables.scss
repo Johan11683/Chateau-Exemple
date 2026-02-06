@@ -2,6 +2,7 @@
 $color-bg: #fafffe;
 $color-text: #ffffff; // blanc
 $color-text-accent: #55630f; // vert
+$color-bg-light: #55630f76;
 $color-text-muted: rgba(62, 40, 40, 0.78);
 $color-border: rgba(255, 255, 255, 0.18);
 
@@ -22,6 +23,10 @@ $space-3: 16px;
 $space-4: 24px;
 $space-5: 32px;
 $space-6: 48px;
+$space-7: 100px;
+$space-8: 200px;
+
+
 
 // Breakpoints (mobile-first)
 $bp-sm: 480px;

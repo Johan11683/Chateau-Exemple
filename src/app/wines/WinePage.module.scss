@@ -1,0 +1,153 @@
+@use "../../styles/variables" as v;
+@use "../../styles/mixins" as m;
+
+/* =========================================================
+   PAGE / SECTION
+   ========================================================= */
+
+.page {
+  padding-top: v.$space-7; // compense header fixed
+}
+
+.section {
+  padding-block: clamp(v.$space-6, 10vh, v.$space-8);
+}
+
+.inner {
+  @include m.container;
+
+  display: grid;
+  gap: v.$space-6;
+
+  /* mobile-first */
+  grid-template-columns: 1fr;
+
+  @include m.up(v.$bp-lg) {
+    grid-template-columns: 1fr 1fr;
+    align-items: start;
+    gap: v.$space-7;
+  }
+}
+
+/* =========================================================
+   MEDIA (RESPONSIVE EDITORIAL)
+   ========================================================= */
+
+.media {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+
+  /* 📱 mobile : image plus “éditoriale”, moins haute */
+  aspect-ratio: 16 / 10;
+  max-height: min(56vh, 420px);
+
+  /* petit mobile : encore un peu plus contenue */
+  @media (max-width: 399px) {
+    aspect-ratio: 16 / 9;
+    max-height: min(50vh, 360px);
+  }
+
+  /* SM : on commence à redonner de la verticalité */
+  @include m.up(v.$bp-sm) {
+    aspect-ratio: 4 / 3;
+    max-height: min(54vh, 460px);
+  }
+
+  /* MD : encore un peu plus haut (tablette) */
+  @include m.up(v.$bp-md) {
+    aspect-ratio: 3 / 2;
+    max-height: min(52vh, 520px);
+  }
+
+  /* LG+ : vraie colonne image, format noble */
+  @include m.up(v.$bp-lg) {
+    aspect-ratio: 3 / 4;
+    max-height: none;
+  }
+}
+
+.image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+
+  /* centre par défaut, ajuste si besoin par cuvée */
+  object-position: center;
+}
+
+/* =========================================================
+   CONTENT
+   ========================================================= */
+
+.content {
+  max-width: 60ch;
+}
+
+.title {
+  @include m.luxe-text;
+  font-size: clamp(1.6rem, 3vw, 2.4rem);
+  color: v.$color-text-accent;
+}
+
+.kicker {
+  margin-top: v.$space-4;
+  font-style: italic;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: v.$color-text-muted;
+}
+
+.description {
+  margin-top: v.$space-4;
+  font-size: 1rem;
+  line-height: 1.7;
+  color: v.$color-text-muted;
+}
+
+/* =========================================================
+   VINTAGES
+   ========================================================= */
+
+.vintages {
+  margin-top: v.$space-6;
+}
+
+.vintagesTitle {
+  @include m.luxe-text;
+  font-size: 0.75rem;
+  color: v.$color-text-accent;
+  margin-bottom: v.$space-3;
+}
+
+.vintageList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: v.$space-3;
+
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.vintageLinkDisabled {
+  font-size: 0.8rem;
+  color: v.$color-text-muted;
+  opacity: 0.6;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 0.25rem 0.35rem;
+  border-bottom: 1px solid transparent;
+
+  cursor: not-allowed;
+  user-select: none;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .vintageLinkDisabled:hover {
+    border-bottom-color: currentColor;
+  }
+}
